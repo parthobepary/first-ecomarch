@@ -6,6 +6,7 @@
       </div>
       <nav>
         <router-link class="navlink" to="/">Home</router-link> |
+        <router-link class="navlink" to="/carts">Cart</router-link> |
         <router-link class="navlink" to="/about">About</router-link>
       </nav>
     </div>

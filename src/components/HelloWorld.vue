@@ -30,6 +30,12 @@ export default {
       inputValue: "",
     };
   },
+  watch: {
+    inputValue(newVal, OldVal) {
+      console.log(newVal, "new");
+      console.log(OldVal, "old");
+    },
+  },
   methods: {
     showAll() {
       this.shortedData = [...this.products];
@@ -47,12 +53,15 @@ export default {
       const result = valus.filter((element) => element?.rating?.rate > rating);
       this.shortedData = [...result];
     },
+    init() {
+      this.axios.get("https://fakestoreapi.com/products").then((res) => {
+        this.products = res.data;
+        this.shortedData = [...this.products];
+      });
+    },
   },
   mounted() {
-    this.axios.get("https://fakestoreapi.com/products").then((res) => {
-      this.products = res.data;
-      this.shortedData = [...this.products];
-    });
+    this.init();
   },
 
   created() {},
