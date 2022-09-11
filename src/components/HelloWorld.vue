@@ -1,6 +1,11 @@
 <template>
   <div>
     <h1>Welcome to online shopping</h1>
+    <div>
+      <button @click="showAll">All</button>
+      <button @click="showAllLowprice(10)">0-10</button>
+      <button @click="showAllLowprice(30)">10-30</button>
+    </div>
     <div class="productscards">
       <div class="itemcard" v-for="item in products" v-bind:key="item.id">
         <h2>Name: {{ item.title }}</h2>
@@ -8,7 +13,7 @@
         <p>Price: {{ item.price }}</p>
         <p>Rating: {{ item.rating.rate }}</p>
         <p>Count: {{ item.rating.count }}</p>
-        <button @click="hello(item.id)" class="">Add to card</button>
+        <button class="">Add to card</button>
       </div>
     </div>
   </div>
@@ -21,13 +26,28 @@ export default {
   data() {
     return {
       products: [],
+      shortedData: [],
     };
+  },
+  methods: {
+    showAll() {
+      this.axios.get("https://fakestoreapi.com/products").then((res) => {
+        this.products = res.data;
+      });
+    },
+    showAllLowprice(value) {
+      const valus = this.products;
+      const result = valus.filter((element) => element?.price <= value);
+      this.products = result;
+    },
   },
   mounted() {
     this.axios.get("https://fakestoreapi.com/products").then((res) => {
       this.products = res.data;
     });
   },
+
+  created() {},
 };
 </script>
 
